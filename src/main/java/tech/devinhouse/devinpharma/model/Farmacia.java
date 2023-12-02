@@ -5,12 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "FARMACIAS")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 
 public class Farmacia {
 
@@ -31,3 +33,5 @@ public class Farmacia {
     private Endereco endereco;
 
 }
+
+

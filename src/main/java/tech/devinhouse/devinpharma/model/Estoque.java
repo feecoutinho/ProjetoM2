@@ -1,21 +1,29 @@
 package tech.devinhouse.devinpharma.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ESTOQUES")
 @IdClass(IdEstoque.class)
+@Data
+
 public class Estoque {
+
+    @ManyToOne
+    @JoinColumn(name = "cnpj")
     @Id
-    private Long cnpj;
+    private Farmacia farmacia;
+
+    @ManyToOne
+    @JoinColumn(name = "nroRegistro")
     @Id
-    private Integer nroRegistro;
+    private Medicamento medicamento;
+
     private Integer quantidade;
+
     private LocalDateTime dataAtualizacao;
 
 }

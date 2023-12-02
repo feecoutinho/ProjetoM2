@@ -2,12 +2,14 @@ package tech.devinhouse.devinpharma.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "MEDICAMENTOS")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 
 public class Medicamento {
 

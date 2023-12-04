@@ -6,18 +6,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.devinhouse.devinpharma.model.*;
-import tech.devinhouse.devinpharma.repository.FarmaciaRepository;
 import tech.devinhouse.devinpharma.services.EstoqueService;
 import tech.devinhouse.devinpharma.services.FarmaciaService;
 import tech.devinhouse.devinpharma.services.MedicamentoService;
 
-import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @RestController
-@RequestMapping("/inicializacao")
+@RequestMapping
 
 public class InicializacaoController {
 
@@ -50,12 +47,24 @@ public class InicializacaoController {
             Medicamento medicamento4 = new Medicamento(8880, "Gelox", "Ice", "2x ao dia", "Quisque quam orci, vulputate sit amet", 11.50f, TipoMedicamento.COMUM);
             Medicamento medicamento5 = new Medicamento(5656, "Aspirazol", "Acme", "3x ao dia", "Sed faucibus, libero iaculis pulvinar consequat, augue elit eleifend", 10.50f, TipoMedicamento.CONTROLADO);
             Medicamento medicamento6 = new Medicamento(4040, "Propolizol", "Bee", "5x ao dia", "Nunc euismod ipsum purus, sit amet finibus libero ultricies in", 10.50f, TipoMedicamento.CONTROLADO);
+
+            medicamentoService.salvar(medicamento1);
+            medicamentoService.salvar(medicamento2);
+            medicamentoService.salvar(medicamento3);
+            medicamentoService.salvar(medicamento4);
+            medicamentoService.salvar(medicamento5);
+            medicamentoService.salvar(medicamento6);
         }
 
         var estoque = estoqueService.consultar();
         if (estoque.isEmpty()){
 
-            Estoque estoque1 = new Estoque(90561736000121L, 1010, 12, LocalDateTime.now());
+            estoqueService.cadastrarEstoque(90561736000121L, 1010, 12, LocalDateTime.now());
+            estoqueService.cadastrarEstoque(90561736000121L, 7473, 10, LocalDateTime.now());
+            estoqueService.cadastrarEstoque(43178995000198L, 7473, 2, LocalDateTime.now());
+            estoqueService.cadastrarEstoque(43178995000198L, 2233, 15, LocalDateTime.now());
+            estoqueService.cadastrarEstoque(43178995000198L, 8880, 16, LocalDateTime.now());
+            estoqueService.cadastrarEstoque(43178995000198L, 4040, 22, LocalDateTime.now());
         }
 
         return ResponseEntity.ok().build();

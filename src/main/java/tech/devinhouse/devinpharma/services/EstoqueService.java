@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import tech.devinhouse.devinpharma.model.Estoque;
 import tech.devinhouse.devinpharma.model.Farmacia;
 import tech.devinhouse.devinpharma.model.Medicamento;
+import tech.devinhouse.devinpharma.model.IdEstoque;
 import tech.devinhouse.devinpharma.repository.EstoqueRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,12 +31,17 @@ public class EstoqueService {
         return estoqueRepo.findAll();
     }
 
-    public Estoque cadastrarEstoque(Long cnpj, Integer nroRegistro, Estoque estoque) {
-        var farmacia = this.consultar();
-        var medicamento = this.consultar();
+    public Estoque cadastrarEstoque(Long cnpj, Integer nroRegistro, Integer qty, LocalDateTime data) {
+        Farmacia farma = farmaciaService.consultar(cnpj);
+        Medicamento med = medicamentoService.consultar(nroRegistro);
+        Estoque estoque = new Estoque(farma, med, qty, data);
+
         estoque = estoqueRepo.save(estoque);
         return estoque;
     }
+
+
+
 }
 
 

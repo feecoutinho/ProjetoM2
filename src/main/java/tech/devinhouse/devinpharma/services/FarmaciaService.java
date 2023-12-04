@@ -1,5 +1,6 @@
 package tech.devinhouse.devinpharma.services;
 
+import jakarta.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,12 @@ public class FarmaciaService {
         return farmaciaRepo.findAll();
     }
 
-    public Farmacia salvar(Farmacia farmacia) {
+    public Farmacia consultar(Long cnpj) {
+        return farmaciaRepo.findById(cnpj)
+        .orElseThrow(() -> new RuntimeException ("Farmacia não encontrada"));
+    }
+
+    public Farmacia salvar(@NotNull Farmacia farmacia) {
         boolean existe = farmaciaRepo.existsById(farmacia.getCnpj());
         //if (existe)
             //throw new RegistroJaExistenteException("Veiculo", veiculo.getPlaca());

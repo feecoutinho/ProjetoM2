@@ -2,11 +2,9 @@ package tech.devinhouse.devinpharma.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tech.devinhouse.devinpharma.dto.FarmaciaResponse;
 import tech.devinhouse.devinpharma.model.Farmacia;
 import tech.devinhouse.devinpharma.services.FarmaciaService;
@@ -36,4 +34,16 @@ public class FarmaciaController {
         return ResponseEntity.ok(resp);
     }
 
+    @GetMapping("farmacias/{cnpj}")
+    public ResponseEntity<?> consultarFarmacia(@PathVariable("cnpj") Long cnpj){
+        try {
+            Farmacia farmacia = farmaciaService.consultar(cnpj);
+            return ResponseEntity.ok(mapper.map(farmacia, FarmaciaResponse.class));
+        }
+        catch(Exception e) {
+            return new ResponseEntity<String>("A farmacia " + cnpj + " não existe em nossa base ou a conexão falhou por outro motivo.", HttpStatusCode.valueOf(404));
+        }
     }
+
+    }
+

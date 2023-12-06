@@ -31,6 +31,12 @@ public class EstoqueService {
         return estoqueRepo.findAll();
     }
 
+    public List<Estoque> consultar(Long cnpj) {
+        Farmacia farma = farmaciaService.consultar(cnpj);
+        return estoqueRepo.findAllByFarmacia(farma);
+    }
+
+
     public Estoque cadastrarEstoque(Long cnpj, Integer nroRegistro, Integer qty, LocalDateTime data) {
         Farmacia farma = farmaciaService.consultar(cnpj);
         Medicamento med = medicamentoService.consultar(nroRegistro);

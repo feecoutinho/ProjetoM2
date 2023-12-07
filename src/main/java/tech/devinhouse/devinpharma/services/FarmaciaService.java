@@ -28,6 +28,10 @@ public class FarmaciaService {
         .orElseThrow(() -> new RuntimeException ("Farmacia não encontrada"));
     }
 
+    public boolean checaSeExiste(Long cnpj) {
+        return farmaciaRepo.existsById(cnpj);
+    }
+
     public Farmacia salvar(@NotNull Farmacia farmacia) {
         boolean existe = farmaciaRepo.existsById(farmacia.getCnpj());
         if (existe)

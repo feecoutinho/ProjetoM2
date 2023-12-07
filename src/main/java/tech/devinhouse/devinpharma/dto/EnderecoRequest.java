@@ -5,25 +5,31 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class FarmaciaRequest {
+public class EnderecoRequest {
 
     @NotNull(message = "Campo obrigatório.")
-    private Long cnpj;
-
-    @NotBlank(message = "Campo obrigatório.")
-    private String razaoSocial;
-
-    @NotBlank(message = "Campo obrigatório.")
-    private String nomeFantasia;
-
-    @NotBlank(message = "Campo obrigatório.")
-    private String email;
-
-    private String telefone;
+    private Integer cep;
 
     @NotNull(message = "Campo obrigatório.")
-    private String celular;
+    private String logradouro;
 
     @NotNull(message = "Campo obrigatório.")
-    private EnderecoRequest endereco;
+    private Integer numero;
+
+    @NotBlank(message = "Campo obrigatório.")
+    private String bairro;
+
+    @NotBlank(message = "Campo obrigatório.")
+    private String cidade;
+
+    @NotBlank(message = "Campo obrigatório.")
+    private String estado;
+
+    private String complemento;
+
+    @NotNull(message = "Campo obrigatório.")
+    private Double latitude;
+
+    @NotNull(message = "Campo obrigatório.")
+    private Double longitude;
 }

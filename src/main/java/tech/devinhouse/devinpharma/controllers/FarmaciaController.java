@@ -1,14 +1,17 @@
 package tech.devinhouse.devinpharma.controllers;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.devinhouse.devinpharma.dto.FarmaciaRequest;
 import tech.devinhouse.devinpharma.dto.FarmaciaResponse;
 import tech.devinhouse.devinpharma.model.Farmacia;
 import tech.devinhouse.devinpharma.services.FarmaciaService;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +46,17 @@ public class FarmaciaController {
         catch(Exception e) {
             return new ResponseEntity<String>("A farmacia " + cnpj + " não existe em nossa base ou a conexão falhou por outro motivo.", HttpStatusCode.valueOf(404));
         }
+    }
+
+    @PostMapping("/farmacias")
+    public ResponseEntity<?> registrarFarmacia(@RequestBody @Valid FarmaciaRequest request) {
+        Farmacia farmacia = mapper.map(request, Farmacia.class);
+        if (farmaciaService.checaSeExiste(farmacia.getCnpj())) {
+            return new ResponseEntity<String>("A farmacia " + farmacia.getCnpj() + " já existe em nossa base.", HttpStatusCode.valueOf(400));
+        }
+        farmaciaService.salvar(farmacia);
+        var resp = mapper.map(farmacia, FarmaciaResponse.class);
+        return ResponseEntity.created(URI.create(farmacia.getCnpj().toString())).body(resp);
     }
 
     }

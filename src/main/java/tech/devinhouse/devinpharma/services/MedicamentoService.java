@@ -27,6 +27,10 @@ public class MedicamentoService {
                 .orElseThrow(() -> new ArrayIndexOutOfBoundsException("Não encontrado medicamento com numero: " + Nro));
     }
 
+    public boolean checaSeExiste(Integer Nro) {
+        return medRepo.existsById(Nro);
+    }
+
     public Medicamento salvar(Medicamento medicamento) {
         boolean existe = medRepo.existsById(medicamento.getNroRegistro());
 

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class IdEstoque implements java.io.Serializable {
+
     private Farmacia farmacia;
+
     private Medicamento medicamento;
 }

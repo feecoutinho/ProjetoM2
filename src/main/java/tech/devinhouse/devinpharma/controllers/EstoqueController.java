@@ -51,4 +51,11 @@ public class EstoqueController {
         var resp = new EstoqueFarmaciaResponse(estoque.getFarmacia().getCnpj(), estoque.getMedicamento().getNroRegistro(), estoque.getQuantidade());
         return ResponseEntity.ok(resp);
     }
+
+    @DeleteMapping("/estoque")
+    public ResponseEntity<?> VenderMedDoEstoque(@RequestBody @Valid EstoqueRequest request) {
+        Estoque estoque = estoqueService.venderEstoque(request.getCnpj(), request.getNroRegistro(), request.getQuantidade(), LocalDateTime.now());
+        var resp = new EstoqueFarmaciaResponse(estoque.getFarmacia().getCnpj(), estoque.getMedicamento().getNroRegistro(), estoque.getQuantidade());
+        return ResponseEntity.ok(resp);
+    }
 }

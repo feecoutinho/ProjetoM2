@@ -65,6 +65,30 @@ public class EstoqueService {
         return estoque;
     }
 
+    public Estoque venderEstoque(Long cnpj, Integer nroRegistro, Integer qty, LocalDateTime data) {
+        Farmacia farma = farmaciaService.consultar(cnpj);
+        Medicamento med = medicamentoService.consultar(nroRegistro);
+        if (qty <= 0){
+            throw new RuntimeException("Quantidade deve ser maior que zero.");
+        }
+        IdEstoque id = new IdEstoque(farma, med);
+        if (!(estoqueRepo.existsById(id))) {
+            throw new RuntimeException("Não temos esse medicamento aqui.");
+        }
+        Estoque estoque = estoqueRepo.getReferenceById(id);
+        if (qty > estoque.getQuantidade()){
+            throw new RuntimeException("Não temos tanto desse remédio, temos apenas "+ estoque.getQuantidade());
+        }
+        estoque.setQuantidade(estoque.getQuantidade()-qty);
+        estoque.setDataAtualizacao(data);
+        if (estoque.getQuantidade() == 0){
+            estoqueRepo.delete(estoque);
+            return estoque;
+        }
+        estoque = estoqueRepo.save(estoque);
+        return estoque;
+    }
+
 }
 
 

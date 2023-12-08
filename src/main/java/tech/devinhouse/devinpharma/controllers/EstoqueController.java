@@ -31,7 +31,8 @@ public class EstoqueController {
 
     @GetMapping("/estoque/{cnpj}")
     public ResponseEntity<?> consultarEstoque(@PathVariable("cnpj") Long cnpj){
-        try {
+
+
             List<Estoque> estoques = estoqueService.consultar(cnpj);
             List<EstoqueResponse> resp = new ArrayList<EstoqueResponse>();
             for (Estoque estoque : estoques){
@@ -39,10 +40,7 @@ public class EstoqueController {
                 resp.add(r);
             }
             return ResponseEntity.ok(resp);
-        }
-        catch(Exception e) {
-            return new ResponseEntity<String>("A farmacia " + cnpj + " não existe em nossa base ou a conexão falhou por outro motivo.", HttpStatusCode.valueOf(404));
-        }
+
     }
 
     @PostMapping("/estoque")

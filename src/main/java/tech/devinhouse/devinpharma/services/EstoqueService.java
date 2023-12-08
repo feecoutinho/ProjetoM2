@@ -3,6 +3,8 @@ package tech.devinhouse.devinpharma.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.devinhouse.devinpharma.exception.EstoqueInexistenteException;
+import tech.devinhouse.devinpharma.exception.QuantidadeInvalidaException;
 import tech.devinhouse.devinpharma.model.Estoque;
 import tech.devinhouse.devinpharma.model.Farmacia;
 import tech.devinhouse.devinpharma.model.Medicamento;
@@ -50,7 +52,7 @@ public class EstoqueService {
         Farmacia farma = farmaciaService.consultar(cnpj);
         Medicamento med = medicamentoService.consultar(nroRegistro);
         if (qty <= 0){
-            throw new RuntimeException("Quantidade deve ser maior que zero.");
+            throw new QuantidadeInvalidaException(qty);
         }
         IdEstoque id = new IdEstoque(farma, med);
         if (!(estoqueRepo.existsById(id))) {
@@ -69,15 +71,16 @@ public class EstoqueService {
         Farmacia farma = farmaciaService.consultar(cnpj);
         Medicamento med = medicamentoService.consultar(nroRegistro);
         if (qty <= 0){
-            throw new RuntimeException("Quantidade deve ser maior que zero.");
+            throw new QuantidadeInvalidaException(qty);
         }
+
         IdEstoque id = new IdEstoque(farma, med);
         if (!(estoqueRepo.existsById(id))) {
-            throw new RuntimeException("Não temos esse medicamento aqui.");
+            throw new EstoqueInexistenteException();
         }
         Estoque estoque = estoqueRepo.getReferenceById(id);
         if (qty > estoque.getQuantidade()){
-            throw new RuntimeException("Não temos tanto desse remédio, temos apenas "+ estoque.getQuantidade());
+            throw new QuantidadeInvalidaException(qty);
         }
         estoque.setQuantidade(estoque.getQuantidade()-qty);
         estoque.setDataAtualizacao(data);

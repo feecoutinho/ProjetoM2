@@ -12,6 +12,7 @@ import tech.devinhouse.devinpharma.model.IdEstoque;
 import tech.devinhouse.devinpharma.repository.EstoqueRepository;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -90,6 +91,17 @@ public class EstoqueService {
         }
         estoque = estoqueRepo.save(estoque);
         return estoque;
+    }
+
+    public List<Estoque> trocaEstoque(Long cnpjOrigem, Long cnpjDestino, Integer nroRegistro, Integer qty, LocalDateTime data) {
+        // Checa existencia dos dados
+        farmaciaService.consultar(cnpjOrigem);
+        farmaciaService.consultar(cnpjDestino);
+        medicamentoService.consultar(nroRegistro);
+        // Chama "adicionar" e "subtrair" medicamento do estoque
+        Estoque EstoqueOrigem = venderEstoque(cnpjOrigem, nroRegistro, qty, data);
+        Estoque EstoqueDestino = adquirirEstoque(cnpjDestino, nroRegistro, qty, data);
+        return Arrays.asList(EstoqueOrigem, EstoqueDestino);
     }
 
 }

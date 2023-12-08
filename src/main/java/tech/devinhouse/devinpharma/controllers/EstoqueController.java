@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.devinhouse.devinpharma.dto.EstoqueFarmaciaResponse;
-import tech.devinhouse.devinpharma.dto.EstoqueRequest;
-import tech.devinhouse.devinpharma.dto.EstoqueResponse;
-import tech.devinhouse.devinpharma.dto.FarmaciaResponse;
+import tech.devinhouse.devinpharma.dto.*;
 import tech.devinhouse.devinpharma.model.Estoque;
 import tech.devinhouse.devinpharma.model.Farmacia;
 import tech.devinhouse.devinpharma.services.EstoqueService;
@@ -54,6 +51,20 @@ public class EstoqueController {
     public ResponseEntity<?> VenderMedDoEstoque(@RequestBody @Valid EstoqueRequest request) {
         Estoque estoque = estoqueService.venderEstoque(request.getCnpj(), request.getNroRegistro(), request.getQuantidade(), LocalDateTime.now());
         var resp = new EstoqueFarmaciaResponse(estoque.getFarmacia().getCnpj(), estoque.getMedicamento().getNroRegistro(), estoque.getQuantidade());
+        return ResponseEntity.ok(resp);
+    }
+
+    @PutMapping("/estoque")
+    public ResponseEntity<EstoqueTrocaResponse> TrocaDeEstoque(@RequestBody @Valid EstoqueTrocaRequest request) {
+        List<Estoque> estoques = estoqueService.trocaEstoque(request.getCnpjOrigem(), request.getCnpjDestino(), request.getNroRegistro(), request.getQuantidade(), LocalDateTime.now());
+        Estoque estoqueOrigem = estoques.get(0);
+        Estoque estoqueDestino = estoques.get(1);
+        var resp = new EstoqueTrocaResponse();
+        resp.setRegistro(request.getNroRegistro());
+        resp.setCnpjOrigem(estoqueOrigem.getFarmacia().getCnpj());
+        resp.setQuantidadeOrigem(estoqueOrigem.getQuantidade());
+        resp.setCnpjDestino(estoqueDestino.getFarmacia().getCnpj());
+        resp.setQuantidadeDestino(estoqueDestino.getQuantidade());
         return ResponseEntity.ok(resp);
     }
 }

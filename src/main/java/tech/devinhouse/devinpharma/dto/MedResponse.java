@@ -1,19 +1,19 @@
-package tech.devinhouse.devinpharma.model;
+package tech.devinhouse.devinpharma.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.devinhouse.devinpharma.model.TipoMedicamento;
 
-@Entity
-@Table(name = "MEDICAMENTOS")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+public class MedResponse {
 
-public class Medicamento {
 
-    @Id
     private Integer nroRegistro;
 
     private String nome;

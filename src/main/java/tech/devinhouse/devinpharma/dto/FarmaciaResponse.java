@@ -1,22 +1,17 @@
-package tech.devinhouse.devinpharma.model;
+package tech.devinhouse.devinpharma.dto;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import tech.devinhouse.devinpharma.model.Endereco;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "FARMACIAS")
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+public class FarmaciaResponse {
 
-public class Farmacia {
-
-    @Id
     private Long cnpj;
 
     private String razaoSocial;
@@ -29,9 +24,6 @@ public class Farmacia {
 
     private String celular;
 
-    @Embedded
     private Endereco endereco;
 
-}
-
-
+    }

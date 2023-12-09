@@ -10,6 +10,7 @@ Tabela de conteúdos
    * [**Como usar**](#Rodandooprojetonoservidor)
    * [**Features**](#Features)
    * [**Próximos Passos**](#ProximosPassos)
+   * [**Rerefências**](#Referencias)
   
 <!--te-->
 
@@ -182,3 +183,7 @@ Serviço responsável por popular os dados inicias nas tabelas.
 ### Próximos Passos 💭
 Este foi minha primeira tentativa de desenvolver uma API REST, revisitarei o código após a avaliação do curso para estudar maneiras de aperfeiçoar o trabalho e pretendo implementar algumas funcionalidades extras, como uma página web ou aplicativo com formulários para executar as requisições e garantir uma maior facilidade de uso para os usuários e a criação de um alerta que avise ao usuário quando o estoque de um medicamento for zerado.
 
+### Referências
+
+Durante o desenvolvimento deste trabalho usei como referência os códigos criados em nossas aulas e presentes no repositório da turma.
+[GitHub - Turma Clamed V2](https://github.com/DEVinHouse-Clamed-V2)

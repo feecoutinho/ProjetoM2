@@ -1,4 +1,4 @@
-# 🚀 Projeto final - Modulo 02 DevInHouse - Tuma Clamed V2.
+# 🚀 Projeto Final - Módulo 02 DevInHouse - Turma Clamed V2.
 
 ## 📋 Medication Management - DevInPharmacy
 
@@ -16,7 +16,7 @@ Tabela de conteúdos
 ### Sobre:
 
 O presente trabalho é uma atividade desenvolvida durante o módulo de back-end do curso DevInHouse, Turma Clamed V2, executado com uso do framework SPRING BOOT. 
-Medication Management é uma API REST voltada para o gerenciamento interno de farmácias, seus estoques e medicamentos. O sistema disponibiliza
+Medication Management é uma API REST voltada para o gerenciamento interno de farmácias, seus estoques e medicamentos.
 Este repositório contém o código fonte da API REST projetada para demonstrar os conceitos e funcionalidades solicitados no projeto. Cada branch contém o código fonte do respectivo resquisito funcional.
 
 #### Pré-requisitos:
@@ -35,7 +35,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ### Rodando o projeto no servidor ⚙️ 
 
-```shell
+```bash
 # Clone este repositório
 $ git clone <https://github.com/feecoutinho/ProjetoM2>
 ```
@@ -50,6 +50,7 @@ $ git clone <https://github.com/feecoutinho/ProjetoM2>
 ### Métodos
 
 Requisições para a API devem seguir os padrões:
+
 | Método | Descrição |
 |---|---|
 | `GET` | Retorna informações de um ou mais registros. |

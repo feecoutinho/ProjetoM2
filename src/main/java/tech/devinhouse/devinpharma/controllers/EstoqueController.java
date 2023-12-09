@@ -3,12 +3,10 @@ package tech.devinhouse.devinpharma.controllers;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.devinhouse.devinpharma.dto.*;
 import tech.devinhouse.devinpharma.model.Estoque;
-import tech.devinhouse.devinpharma.model.Farmacia;
 import tech.devinhouse.devinpharma.services.EstoqueService;
 
 import java.time.LocalDateTime;

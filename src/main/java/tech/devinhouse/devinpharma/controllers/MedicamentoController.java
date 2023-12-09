@@ -3,11 +3,11 @@ package tech.devinhouse.devinpharma.controllers;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.devinhouse.devinpharma.dto.MedRequest;
 import tech.devinhouse.devinpharma.dto.MedResponse;
+import tech.devinhouse.devinpharma.exception.RegistroJaCadastradoException;
 import tech.devinhouse.devinpharma.model.Medicamento;
 import tech.devinhouse.devinpharma.services.MedicamentoService;
 
@@ -42,8 +42,9 @@ public class MedicamentoController {
     public ResponseEntity<?> registrarMedicamento(@RequestBody @Valid MedRequest request) {
         Medicamento medicamento = mapper.map(request, Medicamento.class);
         if (medicamentoService.checaSeExiste(medicamento.getNroRegistro())) {
-            return new ResponseEntity<String>("O medicamento " + medicamento.getNroRegistro() + " já existe em nossa base.", HttpStatusCode.valueOf(400));
+            throw new RegistroJaCadastradoException("Medicamento", medicamento.getNroRegistro());
         }
+
         medicamentoService.salvar(medicamento);
         var resp = mapper.map(medicamento, MedResponse.class);
         return ResponseEntity.created(URI.create(medicamento.getNroRegistro().toString())).body(resp);

@@ -24,7 +24,7 @@ public class RegistroJaCadastradoException extends RuntimeException {
     public String getMessage() {
         if (nome == null || identificador == null)
             return null;
-       // return String.format("Registro '%s' já cadastrado com identificador '%s'", nome, identificador);
+
         if (nome == "Farmacia")
            return String.format("A farmacia de cnpj %s já existe", identificador);
 

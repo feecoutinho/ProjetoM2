@@ -3,7 +3,6 @@ package tech.devinhouse.devinpharma.controllers;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.devinhouse.devinpharma.dto.FarmaciaRequest;
@@ -50,8 +49,8 @@ public class FarmaciaController {
     public ResponseEntity<?> registrarFarmacia(@RequestBody @Valid FarmaciaRequest request) {
         Farmacia farmacia = mapper.map(request, Farmacia.class);
         if (farmaciaService.checaSeExiste(farmacia.getCnpj())) {
-            return new ResponseEntity<String>("A farmácia " + farmacia.getCnpj() + " já existe em nossa base.", HttpStatusCode.valueOf(400));
-            //throw new RegistroJaCadastradoException();
+
+            throw new RegistroJaCadastradoException("Farmacia", farmacia.getCnpj());
         }
         farmaciaService.salvar(farmacia);
         var resp = mapper.map(farmacia, FarmaciaResponse.class);

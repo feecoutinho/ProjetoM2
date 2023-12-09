@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5430/farmaciadb
     username: postgres
-    password: teamo1
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
